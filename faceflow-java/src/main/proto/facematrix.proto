@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package facematrix;
+
+option java_package = "com.example.facematrix";
+option java_outer_classname = "FaceMatrix";
+
+message Face {
+    bytes face = 1;
+}
+
+message Matrix {
+    repeated double matrix = 1 [packed = true];
+}
+
+service FaceTransform {
+    // Sends a greeting
+    rpc getMatrix (Face) returns (Matrix) {
+    }
+}

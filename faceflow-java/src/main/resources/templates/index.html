@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>FaceFlow</title>
+</head>
+<body>
+<h1 th:utext="${message}"></h1>
+<form action="/compare" method="post" enctype="multipart/form-data">
+
+
+    <table>
+        <tr>
+            <td><input type="file" name="face1"/></td>
+        </tr>
+        <tr>
+            <td><input type="file" name="face2"/></td>
+        </tr>
+        <tr>
+            <td>
+                <button>submit</button>
+            </td>
+        </tr>
+        <tr>
+            <td>distance=<em th:utext="${distance}"></em></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
