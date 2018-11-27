@@ -48,6 +48,8 @@ public class FaceController {
                 .toArray();
 
         double distance = new EuclideanDistance().compute(doubles1, doubles2);
+
+
         redirectAttributes.addFlashAttribute("message",
                 "successfully!");
         redirectAttributes.addFlashAttribute("distance",

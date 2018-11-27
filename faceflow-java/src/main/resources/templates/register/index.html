@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>FaceFlow</title>
+</head>
+<body>
+<h1 th:utext="${message}"></h1>
+<form action="/register/add" method="post" enctype="multipart/form-data">
+
+
+    <table>
+        <tr>
+            <td>输入名字:至少3个字符</td>
+            <td><input name="name" pattern="^\S{2,}"/></td>
+        </tr>
+        <tr>
+            <td>
+            </td>
+            <td><input type="file" name="face1"/></td>
+        </tr>
+        <tr>
+            <td>
+            </td>
+            <td>
+                <button>submit</button>
+            </td>
+        </tr>
+    </table>
+</form>
+<h1>识别人脸</h1>
+<form action="/register/identify" method="post" enctype="multipart/form-data">
+
+
+    <table>
+        <tr>
+            <td><input type="file" name="face"/></td>
+        </tr>
+        <tr>
+            <td>
+                <button>submit</button>
+            </td>
+        </tr>
+        <tr>
+            <td>matches:<em th:utext="${matches}"></em></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
