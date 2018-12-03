@@ -31,7 +31,7 @@ class FaceTransformServicerImpl(facematrix_pb2_grpc.FaceTransformServicer):
 
     def getMatrix(self, request, context):
 
-        fd, path = tempfile.mkstemp(dir="../image")
+        fd, path = tempfile.mkstemp(dir="image")
         try:
             with os.fdopen(fd, 'wb') as tmp:
                 # do stuff with temp file
