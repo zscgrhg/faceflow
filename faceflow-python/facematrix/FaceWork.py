@@ -6,7 +6,6 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-import argparse
 import copy
 import os
 
@@ -75,10 +74,42 @@ def load_and_align_data(image_paths, image_size, margin):
 
 
 
-def detect_face(image_paths, image_size=160, margin=44):
-    pass
+def bulk_detect_face(image_paths, image_size=160, margin=16):
+    minsize = 0.01  # minimum size of face
+    threshold = [0.6, 0.7, 0.7]  # three steps's threshold
+    factor = 0.3  # scale factor
+
+    print('Creating networks and loading parameters')
+
+    tmp_image_paths = copy.copy(image_paths)
+    img_list = []
+
+    for index,image in enumerate(tmp_image_paths):
+        img = misc.imread(os.path.expanduser(image), mode='RGB')
+        img_size = np.asarray(img.shape)[0:2]
+        for (bounding_boxes, _) in align.detect_face.bulk_detect_face([img], minsize, pnet, rnet, onet, threshold, factor):
+        #bounding_boxes, _ = align.detect_face.bulk_detect_face(img, minsize, pnet, rnet, onet, threshold, factor)
+            if len(bounding_boxes) < 1:
+                image_paths.remove(image)
+                print("can't detect face, remove ", image)
+                continue
+            det = np.squeeze(bounding_boxes[0, 0:4])
+            bb = np.zeros(4, dtype=np.int32)
+            bb[0] = np.maximum(det[0] - margin / 2, 0)
+            bb[1] = np.maximum(det[1] - margin / 2, 0)
+            bb[2] = np.minimum(det[2] + margin / 2, img_size[1])
+            bb[3] = np.minimum(det[3] + margin / 2, img_size[0])
+            cropped = img[bb[1]:bb[3], bb[0]:bb[2], :]
+            aligned = misc.imresize(cropped, (image_size, image_size), interp='bilinear')
+            misc.imsave("oops"+str(index)+".png", aligned)
+            prewhitened = facenet.prewhiten(aligned)
+            img_list.append(prewhitened)
+    images = np.stack(img_list)
+    return images
 
 
 def transform(faceImagePath):
     return compute([faceImagePath])
 
+if __name__ == '__main__':
+    bulk_detect_face(["image/beuty.jpg"])
