@@ -110,6 +110,3 @@ def bulk_detect_face(image_paths, image_size=160, margin=16):
 
 def transform(faceImagePath):
     return compute([faceImagePath])
-
-if __name__ == '__main__':
-    bulk_detect_face(["image/beuty.jpg"])
