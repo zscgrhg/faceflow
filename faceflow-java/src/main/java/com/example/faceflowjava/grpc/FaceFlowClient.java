@@ -11,8 +11,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class FaceFlowClient implements DisposableBean {
 
-   private final ManagedChannel channel = NettyChannelBuilder
-            .forAddress("127.0.0.1", 50051)
+    private final ManagedChannel channel = NettyChannelBuilder
+            .forAddress("localhost", 50051)
             .negotiationType(NegotiationType.PLAINTEXT)
             .build();
     private final FaceTransformGrpc.FaceTransformBlockingStub blockingStub = FaceTransformGrpc.newBlockingStub(channel);
