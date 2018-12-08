@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class FaceflowJavaApplication {
 
     public static void main(String[] args) {
+
         SpringApplication.run(FaceflowJavaApplication.class, args);
     }
 }

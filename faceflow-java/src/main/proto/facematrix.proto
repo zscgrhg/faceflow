@@ -6,11 +6,11 @@ option java_package = "com.example.facematrix";
 option java_outer_classname = "FaceMatrix";
 
 message Face {
-    bytes face = 1;
+    bytes face = 3;
 }
 
 message Matrix {
-    repeated double matrix = 1 [packed = true];
+    repeated double matrix = 4 [packed = true];
 }
 
 service FaceTransform {
