@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FaceFlow</title>
+</head>
+<body>
+<h1 th:utext="${message}"></h1>
+<form action="/faces/add" method="post" enctype="multipart/form-data">
+
+
+    <table>
+        <tr>
+            <td>输入employId</td>
+            <td><input name="employId" pattern="^\S{2,}"/></td>
+        </tr>
+        <tr>
+            <td>
+            </td>
+            <td><input type="file" name="face1"/></td>
+        </tr>
+        <tr>
+            <td>
+            </td>
+            <td>
+                <button>submit</button>
+            </td>
+        </tr>
+    </table>
+</form>
+<h1>人脸验证</h1>
+<form action="/faces/identify" method="post" enctype="multipart/form-data">
+
+
+    <table>
+        <tr>
+            <td>输入employId</td>
+            <td><input name="employId" pattern="^\S{2,}"/></td>
+        </tr>
+        <tr>
+            <td><input type="file" name="face"/></td>
+        </tr>
+        <tr>
+            <td>
+                <button>submit</button>
+            </td>
+        </tr>
+        <tr>
+            <td>matches:<em th:utext="${matches}"></em></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
