@@ -1,4 +1,4 @@
-syntax = "proto3";
+syntax = "proto2";
 
 package facematrix;
 
@@ -6,7 +6,7 @@ option java_package = "com.example.facematrix";
 option java_outer_classname = "FaceMatrix";
 
 message Face {
-    bytes face = 3;
+    required bytes face = 3;
 }
 
 message Matrix {

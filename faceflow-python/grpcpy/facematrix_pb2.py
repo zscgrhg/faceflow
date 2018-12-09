@@ -17,9 +17,9 @@ _sym_db = _symbol_database.Default()
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='facematrix.proto',
   package='facematrix',
-  syntax='proto3',
+  syntax='proto2',
   serialized_options=_b('\n\026com.example.facematrixB\nFaceMatrix'),
-  serialized_pb=_b('\n\x10\x66\x61\x63\x65matrix.proto\x12\nfacematrix\"\x14\n\x04\x46\x61\x63\x65\x12\x0c\n\x04\x66\x61\x63\x65\x18\x01 \x01(\x0c\"\x1c\n\x06Matrix\x12\x12\n\x06matrix\x18\x01 \x03(\x01\x42\x02\x10\x01\x32\x44\n\rFaceTransform\x12\x33\n\tgetMatrix\x12\x10.facematrix.Face\x1a\x12.facematrix.Matrix\"\x00\x42$\n\x16\x63om.example.facematrixB\nFaceMatrixb\x06proto3')
+  serialized_pb=_b('\n\x10\x66\x61\x63\x65matrix.proto\x12\nfacematrix\"\x14\n\x04\x46\x61\x63\x65\x12\x0c\n\x04\x66\x61\x63\x65\x18\x03 \x02(\x0c\"\x1c\n\x06Matrix\x12\x12\n\x06matrix\x18\x04 \x03(\x01\x42\x02\x10\x01\x32\x44\n\rFaceTransform\x12\x33\n\tgetMatrix\x12\x10.facematrix.Face\x1a\x12.facematrix.Matrix\"\x00\x42$\n\x16\x63om.example.facematrixB\nFaceMatrix')
 )
 
 
@@ -34,7 +34,7 @@ _FACE = _descriptor.Descriptor(
   fields=[
     _descriptor.FieldDescriptor(
       name='face', full_name='facematrix.Face.face', index=0,
-      number=1, type=12, cpp_type=9, label=1,
+      number=3, type=12, cpp_type=9, label=2,
       has_default_value=False, default_value=_b(""),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -47,7 +47,7 @@ _FACE = _descriptor.Descriptor(
   ],
   serialized_options=None,
   is_extendable=False,
-  syntax='proto3',
+  syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
@@ -65,7 +65,7 @@ _MATRIX = _descriptor.Descriptor(
   fields=[
     _descriptor.FieldDescriptor(
       name='matrix', full_name='facematrix.Matrix.matrix', index=0,
-      number=1, type=1, cpp_type=5, label=3,
+      number=4, type=1, cpp_type=5, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -78,7 +78,7 @@ _MATRIX = _descriptor.Descriptor(
   ],
   serialized_options=None,
   is_extendable=False,
-  syntax='proto3',
+  syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],

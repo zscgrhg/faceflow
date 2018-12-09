@@ -1,4 +1,4 @@
-syntax = "proto3";
+syntax = "proto2";
 
 package faceentry;
 
@@ -6,6 +6,6 @@ option java_package = "com.example.facematrix";
 option java_outer_classname = "FaceEntry";
 
 message Entry {
-    string name = 1;
+    required string name = 1;
     repeated double matrix = 2 [packed = true];
 }

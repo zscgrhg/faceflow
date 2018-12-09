@@ -1,1 +1,1 @@
-python -m grpc_tools.protoc --proto_path=../faceflow-java/src/main/proto --python_out=./grpcpy --grpc_python_out=./grpcpy ../faceflow-java/src/main/proto/facematrix.proto
+python -m grpc_tools.protoc --proto_path=../proto/src/main/proto --python_out=./grpcpy --grpc_python_out=./grpcpy ../proto/src/main/proto/facematrix.proto

@@ -73,15 +73,21 @@ public class FacenetController {
                            @NotBlank @RequestParam(value = "employId", required = true) String employId,
                            RedirectAttributes redirectAttributes) throws IOException {
         FaceMatrix.Matrix matrix = getMatrix(face.getBytes());
-        List<FaceMatrix.Matrix> matrices = hBaseClient.find(employId);
-        boolean matches = matrices
-                .stream()
-                .allMatch(t -> {
-                    double compute = new EuclideanDistance().compute(
-                            unwrap(t), unwrap(matrix));
-                    return compute < 1.0;
-                });
-        redirectAttributes.addFlashAttribute("matches", matches);
+        if (true) {
+            boolean exist = hBaseClient.exist(matrix);
+            redirectAttributes.addFlashAttribute("matches", exist);
+        } else {
+            List<FaceMatrix.Matrix> matrices = hBaseClient.find(employId);
+            boolean matches = matrices
+                    .stream()
+                    .allMatch(t -> {
+                        double compute = new EuclideanDistance().compute(
+                                unwrap(t), unwrap(matrix));
+                        return compute < 1.0;
+                    });
+            redirectAttributes.addFlashAttribute("matches", matches);
+        }
+
         return "redirect:/faces/index";
     }
 
