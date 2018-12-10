@@ -43,8 +43,7 @@ public class EuclideanDistanceFilter extends FilterBase {
     }
 
     @Override
-    public boolean filterRowKey(Cell cell) throws IOException {
-
+    public ReturnCode filterKeyValue(Cell cell) throws IOException {
         byte[] valueArray = cell.getValueArray();
         double[] mx = FaceMatrix.Matrix
                 .parseFrom(valueArray)
@@ -56,8 +55,9 @@ public class EuclideanDistanceFilter extends FilterBase {
         if (compute < 1) {
             this.ignored = false;
         }
-        return false;
+        return ReturnCode.INCLUDE;
     }
+
 
     @Override
     public boolean filterRow() throws IOException {
@@ -65,7 +65,14 @@ public class EuclideanDistanceFilter extends FilterBase {
     }
 
     @Override
+    public boolean hasFilterRow() {
+        return true;
+    }
+
+    @Override
     public byte[] toByteArray() {
+
+
         FaceMatrix.Matrix matrix = FaceMatrix.Matrix
                 .newBuilder()
                 .addAllMatrix(DoubleStream

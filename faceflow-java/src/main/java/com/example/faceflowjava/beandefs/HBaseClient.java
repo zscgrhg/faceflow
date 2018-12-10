@@ -6,13 +6,14 @@ import com.hbase.filter.EuclideanDistanceFilter;
 import lombok.experimental.Delegate;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
+import org.apache.hadoop.hbase.HColumnDescriptor;
+import org.apache.hadoop.hbase.HTableDescriptor;
 import org.apache.hadoop.hbase.TableName;
 import org.apache.hadoop.hbase.client.*;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NavigableMap;
@@ -39,7 +40,7 @@ public class HBaseClient implements DisposableBean, Connection {
                         String id,
                         byte[] face,
                         FaceMatrix.Matrix matrix) throws IOException {
-        Table table = connection.getTable(TableName.valueOf("default:facesmatrixv3"));
+        Table table = connection.getTable(TableName.valueOf("default:facesmatrixv4"));
         Put putObj = new Put(employId.getBytes());
         //上面行指定完后,就需要指定列族,列,值,这样才是完整的
 
@@ -51,7 +52,7 @@ public class HBaseClient implements DisposableBean, Connection {
     }
 
     public List<FaceMatrix.Matrix> find(String employId) throws IOException {
-        Table table = connection.getTable(TableName.valueOf("default:facesmatrixv3"));
+        Table table = connection.getTable(TableName.valueOf("default:facesmatrixv4"));
         Get get = new Get(employId.getBytes());
         get.addFamily("matrix".getBytes());
         Result result = table.get(get);
@@ -67,7 +68,7 @@ public class HBaseClient implements DisposableBean, Connection {
 
     public boolean exist(FaceMatrix.Matrix matrix) throws IOException {
 
-        Table table = connection.getTable(TableName.valueOf("default:facesmatrixv3"));
+        Table table = connection.getTable(TableName.valueOf("default:facesmatrixv4"));
         Scan scan = new Scan();
         scan.setFilter(new EuclideanDistanceFilter(matrix
                 .getMatrixList()
@@ -91,23 +92,18 @@ public class HBaseClient implements DisposableBean, Connection {
     private void initTables(Connection connection) throws IOException {
         Admin admin = connection.getAdmin();
         //创建表名描述
-        TableName tableName = TableName.valueOf("default:facesmatrixv3");
+        TableName tableName = TableName.valueOf("default:facesmatrixv4");
         //创建表描述,并赋予表名
-        TableDescriptorBuilder tableBuilder = TableDescriptorBuilder
-                .newBuilder(tableName);
 
-        ColumnFamilyDescriptor matrixid = ColumnFamilyDescriptorBuilder
-                .newBuilder("matrix".getBytes())
-                .setInMemory(true)
-                .build();
-        //将列族信息也赋予表描述对象
-        TableDescriptor table = tableBuilder
-                .setColumnFamilies(Arrays.asList(matrixid))
-                .build();
+        HTableDescriptor tableDescriptor = new HTableDescriptor(tableName);
+
+        //给表描述对象增加列族
+        tableDescriptor.addFamily(new HColumnDescriptor("matrix"));
+
         //创建表
         boolean tableExists = admin.tableExists(tableName);
         if (!tableExists) {
-            admin.createTable(table);
+            admin.createTable(tableDescriptor);
         }
     }
 
